@@ -1,0 +1,16 @@
+server:
+  port: 8101
+
+ribbon:
+  eureka:
+    enabled: false
+
+zuul:
+  routes:
+    first:
+      path: /first/**
+      serviceId: first
+
+first:
+  ribbon:
+    listOfServers: http://localhost:8121,http://localhost:8122
