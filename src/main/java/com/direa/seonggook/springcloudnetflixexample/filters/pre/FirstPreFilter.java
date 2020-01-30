@@ -13,6 +13,7 @@ import org.springframework.cloud.netflix.zuul.filters.support.FilterConstants;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
+@RefreshScope
 public class FirstPreFilter extends ZuulFilter {
     @Override
     public String filterType() {
@@ -38,17 +39,12 @@ public class FirstPreFilter extends ZuulFilter {
     public Object run() {
         System.out.println("========== First Pre Filter Run =========");
 
-        DynamicStringProperty tmp = DynamicPropertyFactory.getInstance().getStringProperty("first.ribbon.listOfServers", null);
-        System.out.println(tmp.getValue());
         RequestContext ctx = RequestContext.getCurrentContext();
         HttpServletRequest request = ctx.getRequest();
 
         System.out.println("Request Method : " + request.getMethod());
         System.out.println("Request URL : " + ctx.getRequest().getRequestURL().toString());
 
-        System.out.println(ctx.get("requestURI").toString());
-        System.out.println(ctx.get("serviceId").toString());
-        System.out.println(ctx.getRouteHost());
         System.out.println("========== First Pre Filter End ==========");
 
         return null;

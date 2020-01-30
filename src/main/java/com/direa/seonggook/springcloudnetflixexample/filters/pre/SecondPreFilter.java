@@ -40,18 +40,15 @@ public class SecondPreFilter extends ZuulFilter {
 
     @Override
     public Object run() {
+        System.out.println("========== Second Pre Filter Run =========");
         RequestContext ctx = RequestContext.getCurrentContext();
         HttpServletRequest request = ctx.getRequest();
-        System.out.println(request.getRequestURI());
-        System.out.println(request.getRequestURL());
+        String serviceId = (String) ctx.get("serviceId");
+        System.out.println("Service Id : " + serviceId);
+        Map<String, ZuulProperties.ZuulRoute> routes =  zuulProperties.getRoutes();
+        System.out.println("Zuul Route : " + routes.get(serviceId).toString());
 
-        String location = request.getRequestURI();
-        Map<String, ZuulProperties.ZuulRoute> aa =  zuulProperties.getRoutes();
-        System.out.println(aa.get("first").toString());
-        ZuulProperties.ZuulRoute bb = aa.get("first");
-
-        System.out.println(bb.getLocation());
-
+        System.out.println("========== Second Pre Filter End ==========");
         return null;
     }
 }
